@@ -24,7 +24,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: 'https://gitlab.gitlab.apps.equeiroz.rhbr-lab.com.br/redhat/ocp-equeiroz.git'
+        repoURL: 'https://github.com/ederqueirozdf/ocp-equeiroz.git'
         targetRevision: HEAD
         path: 'appsets/oadp/overlays/{{metadata.labels.env}}'
       destination:
