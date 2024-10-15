@@ -1,0 +1,20 @@
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: Placement
+metadata:
+  name: {{ .Values.cluster.name }}-placement
+  namespace: open-cluster-management-global-set
+spec:
+  tolerations:
+    - key: cluster.open-cluster-management.io/unreachable
+      operator: Exists
+    - key: cluster.open-cluster-management.io/unavailable
+      operator: Exists
+  clusterSets: []
+  predicates:
+    - requiredClusterSelector:
+        labelSelector:
+          matchExpressions:
+            - key: cluster.open-cluster-management.io/clusterset
+              operator: In
+              values:
+                - prd

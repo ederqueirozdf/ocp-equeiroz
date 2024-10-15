@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../../base/
+
+patches:
+  - target:
+      kind: DataProtectionApplication
+      name: oadp-dpa-des
+    patch: |-
+      - op: replace
+        path: /spec/backupLocations/0/velero/config/s3Url
+        value: "http://s3.des.com.br"
+  # - target:
+  #     group: operators.coreos.com
+  #     version: v1alpha1
+  #     kind: Subscription
+  #     name: redhat-oadp-operator
+  #     namespace: openshift-adp
+  #   patch: |-
+  #     - op: replace
+  #       path: /spec/channel
+  #       value: 'stable-1.1'

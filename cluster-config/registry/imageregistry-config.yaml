@@ -1,0 +1,28 @@
+apiVersion: imageregistry.operator.openshift.io/v1
+kind: Config
+metadata:
+  name: cluster
+spec:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - podAffinityTerm:
+          namespaces:
+          - openshift-image-registry
+          topologyKey: kubernetes.io/hostname
+        weight: 100
+  logLevel: Normal
+  managementState: Managed
+  # Caso use um pv ReadWriteMany, alterar o rolloutStrategy para RollingUpdate e mais replicas
+  # Caso use com uma replica, usar Recreate
+  rolloutStrategy: Recreate
+  replicas: 1
+  storage:
+    pvc:
+      claim: image-registry-storage
+  nodeSelector:
+    node-role.kubernetes.io/infra: ""
+  tolerations:
+    - effect: NoSchedule
+      key: node-role.kubernetes.io/infra
+      operator: Exists

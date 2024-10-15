@@ -1,0 +1,25 @@
+argocd: 
+  namespace: openshift-gitops
+
+project:
+  name: ocp-equeiroz
+  description: Cluster apps ocp-equeiroz
+  sourceRepos:
+    - https://github.com/ederqueirozdf/ocp-equeiroz.git
+  destinations:
+    - namespace: "*"
+      server: https://kubernetes.default.svc
+
+applications:
+
+  - name: elasticsearch-operator
+    repoURL: https://github.com/ederqueirozdf/ocp-equeiroz.git
+    path: cluster-config/elasticsearch-operator
+    destinationNamespace: openshift-operators-redhat
+    destinationServer: https://kubernetes.default.svc
+
+  - name: policy-examples
+    repoURL: https://github.com/ederqueirozdf/ocp-equeiroz.git
+    path: policies
+    destinationNamespace: policies
+    destinationServer: https://kubernetes.default.svc
